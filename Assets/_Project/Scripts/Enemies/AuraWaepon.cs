@@ -1,0 +1,17 @@
+using UnityEngine;
+
+public class AuraWeapon : Waepon
+{
+    protected override bool NeedsTarget => false;
+    protected override void Fire()
+    {
+        if (targeter != null)
+        {
+            foreach (Health enemy in targeter.FindAllTargetsinRange(range))
+            {
+                enemy.TakeDamage(damage);
+            }
+
+        }
+    }
+}

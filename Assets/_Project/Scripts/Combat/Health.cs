@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -15,6 +16,9 @@ public class Health : MonoBehaviour
     public float Max => maxHealth;
     public bool IsDead => Current <= 0f;
 
+    [SerializeField] bool isPlayer = false;
+    public static Health playerHealth;
+    
     /// <summary>Invocato a ogni variazione: (vita attuale, vita massima).</summary>
     public event Action<float, float> HealthChanged;
 
@@ -33,6 +37,8 @@ public class Health : MonoBehaviour
         Current = Mathf.Max(0f, Current - amount);
         HealthChanged?.Invoke(Current, maxHealth);
 
+        Debug.Log($"object {gameObject.name} took {amount} damage. {Current}/{maxHealth}");
+        
         if (Current <= 0f)
         {
             Die();
